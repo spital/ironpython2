@@ -1,11 +1,23 @@
-- name: run_travis_yml
-  uses: ktomk/run-travis-yml@v1.7.0
-  with:
-    file: .travis.yml
-    steps: |
-      before_install
-      script
-    allow-failure: false
-  env:
-    KTOMK_ENV: 1234
-    # ${{ matrix.php-versions }}
+name: my test travis 2 github workflow
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: ktomk/run-travis-yml@v1.7.0
+    - name: run_travis_yml
+      with:
+        file: .travis.yml
+        steps: |
+          before_install
+          script
+        allow-failure: false
+      env:
+        KTOMK_ENV: 1234
+        # ${{ matrix.php-versions }}
