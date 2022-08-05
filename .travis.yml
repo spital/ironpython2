@@ -1,0 +1,26 @@
+
+language: bash
+
+sudo: required
+
+services:
+  - docker
+
+env:
+  - NEW_IMAGE_NAME=tst/ironpython2
+  - BUILD_IMAGE_NAME=debian:stretch
+
+before_install:
+  - docker version
+  - docker pull debian:stretch
+  - docker build -t tst/ironpython2 .
+  - docker run -it tst/ironpython2 cat /etc/os-release
+  - docker run -it tst/ironpython2 python --version
+  - docker run -it tst/ironpython2 ipy --version
+  - docker run -it tst/ironpython2 pytest --version
+
+script:
+  - docker run -it tst/ironpython2 cat /etc/os-release  # not this, run some tests all components work fine
+
+# todo - if yes, push to artif ?
+
