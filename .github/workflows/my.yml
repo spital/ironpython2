@@ -1,0 +1,28 @@
+name: Converted Workflow
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: '${{ matrix.os }}'
+    #strategy:
+    #  matrix:
+    #    include:
+    #      - os: ubuntu-18.04
+    #        NEW_IMAGE_NAME: tst/ironpython2
+    #      - os: ubuntu-18.04
+    #        BUILD_IMAGE_NAME: 'debian:stretch'
+    steps:
+      - uses: actions/checkout@v3
+      - run: docker version
+      - run: docker pull debian:stretch
+      - run: docker build -t tst/ironpython2 .
+      - run: docker run -it tst/ironpython2 cat /etc/os-release
+      - run: docker run -it tst/ironpython2 python --version
+      - run: docker run -it tst/ironpython2 ipy --version
+      - run: docker run -it tst/ironpython2 pytest --version
+      #- run: docker run -it tst/ironpython2 cat /etc/os-release
