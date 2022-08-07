@@ -14,6 +14,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Build the Docker image
+    - name: Build the Docker image 1
       run: docker build . --file Dockerfile --build-arg BUILD_IMAGE_NAME=bullseye-slim --tag bullseye:$(date +%s)
+    - name: Build the Docker image 2
       run: docker build . --file Dockerfile --build-arg BUILD_IMAGE_NAME=buster-slim --tag buster:$(date +%s)
