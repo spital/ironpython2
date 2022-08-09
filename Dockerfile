@@ -16,3 +16,11 @@ RUN dpkg -i ./ironpython_2.7.12.deb
 
 RUN ipy -V
 
+RUN wget https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+
+RUN dpkg -i packages-microsoft-prod.deb
+
+RUN apt-get update && apt-get install -y dotnet-sdk-6.0
+
+RUN dotnet --list-sdks && dotnet --list-runtimes
+
